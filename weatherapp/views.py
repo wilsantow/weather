@@ -36,7 +36,7 @@ def index(request):
             message = 'City added sucessfully'
             message_class = 'is-sucesss '
     
-    
+
     form = CityForm()
 
 
@@ -47,12 +47,12 @@ def index(request):
         
         city_weather = requests.get(url.format(city)).json()
     
-    
+
         weather = {
-        'city' : city,
-        'temperature' : round((city_weather['main']['temp']-32)*5/9),
-        'description' : city_weather['weather'][0]['description'],
-        'icon' : city_weather['weather'][0]['icon']
+            'city': city,
+            'temperature': round((city_weather['main']['temp']-32)*5/9),
+            'description': city_weather['weather'][0]['description'],
+            'icon': city_weather['weather'][0]['icon']
         }
     
         weather_data.append(weather)
@@ -64,6 +64,7 @@ def index(request):
         'message_class' : message_class
     }
     return render(request,'weatherapp/index.html',context)
+
 
 def delete_city(request, city_name):
     City.objects.get(name=city_name).delete(),
