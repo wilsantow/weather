@@ -3,14 +3,13 @@ import requests
 from .models import City
 from .forms import CityForm
 
-# Create your views here.
 def index(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=c0f56de0aaca634c7c539ec3631e040b'
     
     err_msg = ''
     message = ''
     message_class = ''
-    
+
     if request.method == 'POST':
         form = CityForm(request.POST)
         
@@ -23,27 +22,22 @@ def index(request):
                 
                 if r['cod'] == 200:
                     form.save()
-                    
                 else:
-                    err_msg='City does not exist'
+                    err_msg = 'City does not exist'
     
-             
-                
             else:
                 err_msg = 'City already exists! '
   
-    if err_msg:
-        message = err_msg
-        message_class = 'is-danger'
+        if err_msg:
+            message = err_msg
+            message_class = 'is-danger'
     
-    else:
-        message = 'City added sucessfully'
-        message_class = 'is-sucesss '
-    
-    
+        else:
+            message = 'City added sucessfully'
+            message_class = 'is-sucesss '
     
     
-    form=CityForm()
+    form = CityForm()
 
 
     cities=City.objects.all()
